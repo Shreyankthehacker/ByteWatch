@@ -1,0 +1,43 @@
+package com.bytewatch.user.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Entity
+@Table(name = "users")
+public class User {
+
+	
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	private int UserID ; 
+	
+	@Column(nullable = false)
+	@Getter
+	@Setter
+	private String name;
+	
+	@Column(nullable = false , unique = true)
+	@Getter
+	@Setter
+	private String email;
+	
+	
+	
+	public User() {}
+	public User(String name , String email) {
+		this.name = name ;
+		this.email = email;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

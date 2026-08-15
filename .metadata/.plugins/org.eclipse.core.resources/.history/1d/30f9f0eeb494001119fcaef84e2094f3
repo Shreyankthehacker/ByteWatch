@@ -1,0 +1,5 @@
+package com.bytewatch.user.controller;
+
+public class UserController {
+
+}

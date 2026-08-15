@@ -1,0 +1,5 @@
+package com.bytewatch.user.entity;
+
+public class User {
+
+}

@@ -1,0 +1,7 @@
+spring.application.name=ByteWatch
+
+
+#db properties 
+spring.datasource.url=jdbc:postgresql://localhost:5432/bytewatch_db
+spring.datasource.username=bytewatch_admin
+spring.datasource.password=bytewatch

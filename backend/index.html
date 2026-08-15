@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ByteWatch Local HLS Player</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: Arial;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px 25px;
+            cursor: pointer;
+        }
+
+        video {
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>ByteWatch Local HLS Player</h2>
+
+<input
+    id="token"
+    placeholder="JWT token"
+/>
+
+<input
+    id="videoId"
+    placeholder="Video ID"
+/>
+
+<button onclick="playVideo()">
+    Play
+</button>
+
+<p id="status"></p>
+
+<video id="video" controls></video>
+
+<script>
+
+function playVideo() {
+
+    const token = document.getElementById("token").value;
+    const videoId = document.getElementById("videoId").value;
+
+    const video = document.getElementById("video");
+    const status = document.getElementById("status");
+
+    /*
+     * Local filesystem served by:
+     *
+     * python3 -m http.server 8000
+     */
+
+    const playlist =
+        `storage/videos/${videoId}/hls/720p/playlist.m3u8`;
+
+    status.innerText =
+        `Loading: ${playlist}`;
+
+
+    if (Hls.isSupported()) {
+
+        const hls = new Hls();
+
+        hls.loadSource(playlist);
+
+        hls.attachMedia(video);
+
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+
+            status.innerText = "Video loaded.";
+
+            video.play().catch(() => {
+                status.innerText =
+                    "Video loaded. Press Play.";
+            });
+
+        });
+
+        hls.on(Hls.Events.ERROR, (event, data) => {
+
+            console.error(data);
+
+            status.innerText =
+                "HLS error: " + data.details;
+
+        });
+
+    }
+
+    else if (
+        video.canPlayType("application/vnd.apple.mpegurl")
+    ) {
+
+        video.src = playlist;
+
+    }
+
+    else {
+
+        status.innerText =
+            "Browser does not support HLS.";
+
+    }
+}
+
+</script>
+
+</body>
+</html>

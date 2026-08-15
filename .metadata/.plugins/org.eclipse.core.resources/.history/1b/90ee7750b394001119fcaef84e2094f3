@@ -1,0 +1,5 @@
+package com.bytewatch.user.service;
+
+public class UserService {
+
+}

@@ -1,0 +1,26 @@
+package com.bytewatch.user.service;
+
+import org.springframework.stereotype.Service;
+
+import com.bytewatch.user.entity.User;
+import com.bytewatch.user.repository.UserRepository;
+
+@Service
+public class UserService {
+
+	
+	private final UserRepository userRepo;
+	
+	public UserService(UserRepository repo)
+	{
+		this.userRepo = repo;
+	}
+	
+	public User createUser(User user) {
+		return userRepo.save(user)
+	}
+	
+	
+	
+	
+}

@@ -1,0 +1,16 @@
+package com.bytewatch.user.entity;
+
+
+
+@Repository
+public class User {
+
+	int UserID ; 
+	String name;
+	String EmailId;
+	
+	
+	
+	
+	
+}
